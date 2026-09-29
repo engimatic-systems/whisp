@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -euo pipefail
+project=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
+if [[ ! -x "$project/target/release/whisp" ]]; then
+    printf 'Build Whisp first: cd %q && cargo build --release --locked\n' "$project" >&2
+    exit 1
+fi
+exec "$project/target/release/whisp" "$@"
